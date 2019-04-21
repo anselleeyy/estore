@@ -42,7 +42,7 @@ public class ItemController {
 		return item;
 	}
 	
-	@ApiOperation(value = "获取某个商品的所有信息", notes = "根据商品 id 获取商品信息")
+	@ApiOperation(value = "分页查询所有的商品", notes = "根据页码和页大小获取所有商品信息")
 	@GetMapping(value = "/all")
 	public Object findAllItems(@RequestParam int currentPage, @RequestParam int pageSize) {
 		List<Item> list = itemService.findAllByPage(currentPage, pageSize);
