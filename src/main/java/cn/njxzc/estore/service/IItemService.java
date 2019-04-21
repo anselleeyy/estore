@@ -33,4 +33,10 @@ public interface IItemService {
 	 */
 	public Page<Item> findAllByPage(int pageNo, int pageSize);
 	
+	/**
+	 * 更新商品热度
+	 * @param id
+	 */
+	public boolean updateHotRate(Long id);
+	
 }

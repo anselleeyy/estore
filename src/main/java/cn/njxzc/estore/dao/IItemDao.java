@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.github.pagehelper.Page;
 
@@ -35,5 +36,8 @@ public interface IItemDao {
 	@Select(value = "select * from tb_item where id = #{id}")
 	@ResultMap(value = "cn.ltysyn.estore.item.dao.ItemDao.ItemResult")
 	public Item findItemById(long id);
+	
+	@Update(value = "update tb_item set hot_rate = hot_rate + 1 where id = #{id}")
+	public void updateHotRate(long id);
 
 }

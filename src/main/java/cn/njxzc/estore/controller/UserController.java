@@ -6,19 +6,24 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.njxzc.estore.dto.PasswordDto;
 import cn.njxzc.estore.dto.UserDto;
 import cn.njxzc.estore.dto.UserValidate;
 import cn.njxzc.estore.entity.User;
 import cn.njxzc.estore.geetest.GeeInit;
 import cn.njxzc.estore.geetest.GeetestConfig;
 import cn.njxzc.estore.geetest.GeetestLib;
-import cn.njxzc.estore.service.ILoginService;
+import cn.njxzc.estore.service.IUserService;
 import cn.njxzc.estore.utils.RedisDao;
 import cn.njxzc.estore.utils.Response;
 import cn.njxzc.estore.utils.ReturnCode;
@@ -32,7 +37,7 @@ public class UserController {
 	private RedisDao redisDao;
 	
 	@Autowired
-	private ILoginService loginService;
+	private IUserService userService;
 	
 	@GetMapping(value = "/login")
 	public Object putValue(UserValidate userValidate) {
@@ -61,7 +66,7 @@ public class UserController {
 
 		UserDto userDto = new UserDto();
 		if (gt_result == 1) {
-			userDto = loginService.userLogin(userValidate.getUsername(), userValidate.getPassword());
+			userDto = userService.userLogin(userValidate.getUsername(), userValidate.getPassword());
 		} else {
 			// 验证失败
 			userDto.setState(0);
@@ -96,7 +101,7 @@ public class UserController {
 	
 	@GetMapping(value = "/checkLogin")
 	public Object checkLogin(@RequestParam(defaultValue = "") String token) {
-		String userInfo = loginService.checkLogin(token);
+		String userInfo = userService.checkLogin(token);
 		UserDto userDto;
 		if (userInfo == null) {
 			userDto = new UserDto();
@@ -108,5 +113,36 @@ public class UserController {
 		Response response = new Response(ReturnCode.USER_LOGIN_STATUS_CHECKED, userDto);
 		return response;
 	}
+	
+	@PostMapping(value = "/register")
+	public Object register(@RequestBody User user) {
+		// 注册
+		Response response = null;
+		boolean flag = false;
+		flag = userService.insertNew(user);
+		if (flag) {
+			response = new Response(ReturnCode.USER_CREATE_SUCCEED);
+		} else {
+			response = new Response(ReturnCode.USER_REGISTER_ERROR);
+		}
+		return response;
+	}
+	
+	@PutMapping(value = "/updatePassword/{id}")
+	public Object updatePassword(
+			@PathVariable Long id,
+			@RequestBody PasswordDto passwordDto) {
+		System.out.println(passwordDto);
+		Response response = null;
+		boolean flag = false;
+		flag = userService.updatePassword(id, passwordDto.getOldPassword(), passwordDto.getNewPassword());
+		if (flag) {
+			response = new Response(ReturnCode.USER_PASSWORD_SUCCEED);
+		} else {
+			response = new Response(ReturnCode.USER_PASSWORD_FAILED);
+		}
+		return response;
+	}
+	
 
 }

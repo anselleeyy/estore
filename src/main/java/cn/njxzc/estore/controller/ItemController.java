@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,5 +51,15 @@ public class ItemController {
 		Response response = new Response(ReturnCode.ITEM_LIST_GOT, pageInfo);
 		return response;
 	}
-
+	
+	@ApiOperation(value = "点击后更新商品热度")
+	@PutMapping(value = "/updateHot/{id}")
+	public Object updateHotRate(@PathVariable Long id) {
+		boolean flag = itemService.updateHotRate(id);
+		Response response = new Response();
+		if (flag) {
+			response.setReturnCode(ReturnCode.ITEM_HOT_RATE_UPDATE);
+		}
+		return response;
+	}
 }

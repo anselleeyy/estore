@@ -11,11 +11,12 @@ import com.alibaba.fastjson.JSON;
 import cn.njxzc.estore.dao.IUserDao;
 import cn.njxzc.estore.dto.UserDto;
 import cn.njxzc.estore.entity.User;
-import cn.njxzc.estore.service.ILoginService;
+import cn.njxzc.estore.service.IUserService;
+import cn.njxzc.estore.utils.Constants;
 import cn.njxzc.estore.utils.RedisDao;
 
-@Service(value = "loginService")
-public class LoginServiceImpl implements ILoginService {
+@Service(value = "userService")
+public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private IUserDao userDao;
@@ -49,6 +50,48 @@ public class LoginServiceImpl implements ILoginService {
 	public String checkLogin(String token) {
 		// TODO Auto-generated method stub
 		return redisDao.get("session_" + token);
+	}
+
+	@Override
+	public boolean updatePassword(Long id, String oldPassword, String newPassword) {
+		// TODO Auto-generated method stub
+		// 判null
+		if (null == oldPassword || null == newPassword) {
+			return false;
+		}
+		// 判空
+		if ("".equals(oldPassword) || "".equals(newPassword)) {
+			return false;
+		}
+		User realUser = userDao.findById(id);
+		// 旧密码校验
+		if (!realUser.getPassword().equals(DigestUtils.md5DigestAsHex(oldPassword.getBytes()))) {
+			return false;
+		}
+		try {
+			userDao.updatePassword(id, DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
+	@Override
+	public boolean insertNew(User user) {
+		// TODO Auto-generated method stub
+		String password = user.getPassword();
+		// MD5 加密
+		user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+		// 设置默认头像
+		user.setAvatar(Constants.COMMON_AVATAR);
+		try {
+			userDao.registerNew(user);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
 	}
 
 }

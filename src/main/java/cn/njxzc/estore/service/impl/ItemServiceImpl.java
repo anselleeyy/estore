@@ -55,5 +55,17 @@ public class ItemServiceImpl implements IItemService {
 		PageHelper.startPage(pageNo, pageSize);
 		return itemDao.findAllByPage();
 	}
+
+	@Override
+	public boolean updateHotRate(Long id) {
+		// TODO Auto-generated method stub
+		try {
+			itemDao.updateHotRate(id);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
 	
 }
