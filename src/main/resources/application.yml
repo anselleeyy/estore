@@ -1,0 +1,29 @@
+server:
+  port: 15000
+      
+spring:
+  application:
+    name: estore
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.11.124.102:3306/mall?useSSL=false
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      username: ansel
+      password: Ansel0428!
+  redis:
+    host: 10.11.124.102
+    database: 0
+    port: 6378
+    timeout: 10000
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
