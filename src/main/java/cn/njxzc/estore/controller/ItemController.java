@@ -43,10 +43,24 @@ public class ItemController {
 		return item;
 	}
 	
+	/**
+	 * 
+	 * @param type        0: normal | 1: asc | -1: desc
+	 * @param currentPage
+	 * @param pageSize
+	 * @return
+	 */
 	@ApiOperation(value = "分页查询所有的商品", notes = "根据页码和页大小获取所有商品信息")
-	@GetMapping(value = "/all")
-	public Object findAllItems(@RequestParam int currentPage, @RequestParam int pageSize) {
-		List<Item> list = itemService.findAllByPage(currentPage, pageSize);
+	@GetMapping(value = "/all/{type}")
+	public Object findAllItems(@PathVariable int type, @RequestParam int currentPage, @RequestParam int pageSize) {
+		List<Item> list = null;
+		if (type == 0) {
+			list = itemService.findAllByPage(currentPage, pageSize);
+		} else if (type == -1) {
+			list = itemService.findAllByPriceDesc(currentPage, pageSize);
+		} else if (type == 1) {
+			list = itemService.findAllByPriceAsc(currentPage, pageSize);
+		}
 		PageInfo<Item> pageInfo = new PageInfo<>(list);
 		Response response = new Response(ReturnCode.ITEM_LIST_GOT, pageInfo);
 		return response;
@@ -54,6 +68,7 @@ public class ItemController {
 	
     @ApiOperation(value = "根据价格升序分页查询所有的商品")
     @GetMapping(value = "/all/price/asc")
+    @Deprecated
     public Object findItemsByAscPrice(@RequestParam int currentPage, @RequestParam int pageSize) {
         List<Item> list = itemService.findAllByPriceAsc(currentPage, pageSize);
         PageInfo<Item> pageInfo = new PageInfo<>(list);
@@ -63,6 +78,7 @@ public class ItemController {
 
     @ApiOperation(value = "根据价格降序分页查询所有的商品")
     @GetMapping(value = "/all/price/desc")
+    @Deprecated
     public Object findItemsByDescPrice(@RequestParam int currentPage, @RequestParam int pageSize) {
         List<Item> list = itemService.findAllByPriceDesc(currentPage, pageSize);
         PageInfo<Item> pageInfo = new PageInfo<>(list);
@@ -74,8 +90,9 @@ public class ItemController {
     @GetMapping(value = "/all/price/{interval}")
     public Object findItemsBySelectPrice(@RequestParam int currentPage, @RequestParam int pageSize,
         @PathVariable String interval) {
+    	System.out.println(interval);
         // 区间必须通过 | 分割
-        String[] limits = interval.split("|");
+        String[] limits = interval.split("\\|");
         List<Item> list =
             itemService.findAllByPrice(currentPage, pageSize, Integer.valueOf(limits[0]), Integer.valueOf(limits[1]));
         PageInfo<Item> pageInfo = new PageInfo<>(list);
