@@ -27,6 +27,27 @@ public interface IItemDao {
 	public Page<Item> findAllByPage();
 	
 	/**
+	 * 分页降序查询
+	 * @return
+	 */
+	@Select(value = "select * from tb_item order by price desc")
+	public Page<Item> findItemByPriceDesc();
+    
+	/**
+     * 分页升序查询
+     * @return
+     */
+    @Select(value = "select * from tb_item order by price asc")
+    public Page<Item> findItemByPriceAsc();
+    
+    /**
+     * 分页按价格区间查询
+     * @return
+     */
+    @Select(value = "select * from tb_item where price >= #{low} and price <= #{high}")
+    public Page<Item> findItemByPrice(int low, int high);
+	
+	/**
 	 * 根据浏览量排序获取热搜图书
 	 * @return
 	 */

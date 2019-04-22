@@ -67,5 +67,31 @@ public class ItemServiceImpl implements IItemService {
 		}
 		return false;
 	}
+
+    @Override
+    public Page<Item> findAllByPriceDesc(int pageNo, int pageSize) {
+        // TODO Auto-generated method stub
+        PageHelper.startPage(pageNo, pageSize);
+        return itemDao.findItemByPriceDesc();
+    }
+
+    @Override
+    public Page<Item> findAllByPriceAsc(int pageNo, int pageSize) {
+        // TODO Auto-generated method stub
+        PageHelper.startPage(pageNo, pageSize);
+        return itemDao.findItemByPriceAsc();
+    }
+
+    @Override
+    public Page<Item> findAllByPrice(int pageNo, int pageSize, int low, int high) {
+        // TODO Auto-generated method stub
+        PageHelper.startPage(pageNo, pageSize);
+        if (low > high) {
+            low ^= high;
+            high ^= low;
+            low ^= high;
+        }
+        return itemDao.findItemByPrice(low, high);
+    }
 	
 }

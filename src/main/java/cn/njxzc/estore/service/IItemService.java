@@ -34,6 +34,30 @@ public interface IItemService {
 	public Page<Item> findAllByPage(int pageNo, int pageSize);
 	
 	/**
+     * 分页降序查询商品信息
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page<Item> findAllByPriceDesc(int pageNo, int pageSize);
+    
+    /**
+     * 分页升序查询商品信息
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page<Item> findAllByPriceAsc(int pageNo, int pageSize);
+    
+    /**
+     * 分页按照价格区间查询商品信息
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page<Item> findAllByPrice(int pageNo, int pageSize, int low, int high);
+	
+	/**
 	 * 更新商品热度
 	 * @param id
 	 */
