@@ -65,14 +65,20 @@ public class UserController {
 		}
 
 		UserDto userDto = new UserDto();
+		Response response = null;
 		if (gt_result == 1) {
 			userDto = userService.userLogin(userValidate.getUsername(), userValidate.getPassword());
+			if (!"".equals(userDto.getToken())) {
+			    response = new Response(ReturnCode.USER_LOGIN_SUCCEED, userDto);
+            } else {
+                response = new Response(ReturnCode.USER_LOGIN_FAILED, userDto);
+            }
 		} else {
 			// 验证失败
 			userDto.setState(0);
 			userDto.setMessage("验证失败");
+			response = new Response(ReturnCode.GEETEST_VERIFY_FAILED, userDto);
 		}
-		Response response = new Response(ReturnCode.USER_LOGIN_SUCCEED, userDto);
 		
 		return response;
 	}

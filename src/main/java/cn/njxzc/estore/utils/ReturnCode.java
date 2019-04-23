@@ -20,7 +20,10 @@ public enum ReturnCode {
 	
 	USER_PASSWORD_SUCCEED(40006, "用户密码修改成功"),
 	
-	USER_PASSWORD_FAILED(40007, "用户密码修改失败");
+	USER_PASSWORD_FAILED(40007, "用户密码修改失败"),
+	
+	// Geetest
+	GEETEST_VERIFY_FAILED(50001, "极验验证失败");
 	
 	private int code;
 	
