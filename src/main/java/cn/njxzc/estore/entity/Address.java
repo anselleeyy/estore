@@ -20,22 +20,25 @@ public class Address implements Serializable {
 	private String tel;
 	
 	private int isDefault;
-
+	
+	private int isDelete;
+	
 	public Address() {
 		super();
 	}
 
-	public Address(int id, Long userId, String passName, String address, String tel, int isDefault) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.passName = passName;
-		this.address = address;
-		this.tel = tel;
-		this.isDefault = isDefault;
-	}
+	public Address(int id, Long userId, String passName, String address, String tel, int isDefault, int isDelete) {
+        super();
+        this.id = id;
+        this.userId = userId;
+        this.passName = passName;
+        this.address = address;
+        this.tel = tel;
+        this.isDefault = isDefault;
+        this.isDelete = isDelete;
+    }
 
-	public int getId() {
+    public int getId() {
 		return id;
 	}
 
@@ -83,10 +86,18 @@ public class Address implements Serializable {
 		this.isDefault = isDefault;
 	}
 
-	@Override
-	public String toString() {
-		return "Address [id=" + id + ", userId=" + userId + ", passName=" + passName + ", address=" + address + ", tel="
-				+ tel + ", isDefault=" + isDefault + "]";
-	}
+	public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    @Override
+    public String toString() {
+        return "Address [id=" + id + ", userId=" + userId + ", passName=" + passName + ", address=" + address + ", tel="
+            + tel + ", isDefault=" + isDefault + ", isDelete=" + isDelete + "]";
+    }
 	
 }

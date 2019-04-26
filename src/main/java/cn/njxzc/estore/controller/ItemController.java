@@ -43,13 +43,14 @@ public class ItemController {
 		return item;
 	}
 	
-	/**
-	 * 
-	 * @param type        0: normal | 1: asc | -1: desc
-	 * @param currentPage
-	 * @param pageSize
-	 * @return
-	 */
+    /**
+     * 
+     * @param type
+     *            0: normal | 1: asc | -1: desc
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
 	@ApiOperation(value = "分页查询所有的商品", notes = "根据页码和页大小获取所有商品信息")
 	@GetMapping(value = "/all/{type}")
 	public Object findAllItems(@PathVariable int type, @RequestParam int currentPage, @RequestParam int pageSize) {
@@ -65,26 +66,6 @@ public class ItemController {
 		Response response = new Response(ReturnCode.ITEM_LIST_GOT, pageInfo);
 		return response;
 	}
-	
-    @ApiOperation(value = "根据价格升序分页查询所有的商品")
-    @GetMapping(value = "/all/price/asc")
-    @Deprecated
-    public Object findItemsByAscPrice(@RequestParam int currentPage, @RequestParam int pageSize) {
-        List<Item> list = itemService.findAllByPriceAsc(currentPage, pageSize);
-        PageInfo<Item> pageInfo = new PageInfo<>(list);
-        Response response = new Response(ReturnCode.ITEM_LIST_GOT, pageInfo);
-        return response;
-    }
-
-    @ApiOperation(value = "根据价格降序分页查询所有的商品")
-    @GetMapping(value = "/all/price/desc")
-    @Deprecated
-    public Object findItemsByDescPrice(@RequestParam int currentPage, @RequestParam int pageSize) {
-        List<Item> list = itemService.findAllByPriceDesc(currentPage, pageSize);
-        PageInfo<Item> pageInfo = new PageInfo<>(list);
-        Response response = new Response(ReturnCode.ITEM_LIST_GOT, pageInfo);
-        return response;
-    }
 
     @ApiOperation(value = "根据一定价格区间分页查询所有的商品")
     @GetMapping(value = "/all/price/{interval}")

@@ -23,7 +23,22 @@ public enum ReturnCode {
 	USER_PASSWORD_FAILED(40007, "用户密码修改失败"),
 	
 	// Geetest
-	GEETEST_VERIFY_FAILED(50001, "极验验证失败");
+	GEETEST_VERIFY_FAILED(50001, "极验验证失败"),
+	
+	// 地址相关
+	ADDRESS_LIST_GOT(60001, "用户地址列表获取成功"),
+	
+	ADDRESS_ADD_SUCCEED(60002, "用户地址添加成功"),
+    
+    ADDRESS_ADD_FAILED(60003, "用户地址添加失败"),
+	
+	ADDRESS_UPDATE_SUCCEED(60004, "用户地址更新成功"),
+	
+	ADDRESS_UPDATE_FAILED(60005, "用户地址更新失败"),
+	
+	ADDRESS_DELETE_SUCCEED(60006, "用户地址删除成功"),
+    
+    ADDRESS_DELETE_FAILED(60007, "用户地址删除失败");
 	
 	private int code;
 	

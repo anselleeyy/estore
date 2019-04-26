@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.njxzc.estore.entity.Cart;
-import cn.njxzc.estore.service.IAddressService;
 import cn.njxzc.estore.service.ICartService;
 
 @RestController
@@ -22,9 +21,6 @@ public class CartController {
 	
 	@Autowired
 	private ICartService cartService;
-	
-	@Autowired
-	private IAddressService addressService;
 	
 	@GetMapping(value = "/test")
 	public Object find() {
@@ -60,11 +56,6 @@ public class CartController {
 		System.out.println(cart);
 //		return "SUCCESS";
 		return cartService.insertCart(cart);
-	}
-	
-	@GetMapping(value = "/address/{userId}")
-	public Object getAddressList(@PathVariable Long userId) {
-		return addressService.getAddresses(userId);
 	}
 
 }
