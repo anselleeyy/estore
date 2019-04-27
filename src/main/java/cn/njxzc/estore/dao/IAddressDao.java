@@ -12,7 +12,7 @@ import cn.njxzc.estore.entity.Address;
 public interface IAddressDao {
 
     @Select(
-        value = "select * from tb_order_address where user_id = #{userId} and is_delete = 0 order by is_default asc;")
+        value = "select * from tb_order_address where user_id = #{userId} and is_delete = 0 order by is_default desc;")
     public List<Address> getAddresses(Long userId);
 
     @Insert(
