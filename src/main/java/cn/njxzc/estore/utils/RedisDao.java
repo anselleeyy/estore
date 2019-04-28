@@ -27,5 +27,13 @@ public class RedisDao {
 		ValueOperations<String, String> ops = template.opsForValue();
 		return ops.get(key);
 	}
+	
+	public void delKey(String key) {
+		try {
+			template.delete(key);			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 
 }

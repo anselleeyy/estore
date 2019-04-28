@@ -94,4 +94,16 @@ public class UserServiceImpl implements IUserService {
 		return false;
 	}
 
+	@Override
+	public boolean logout(String token) {
+		// TODO Auto-generated method stub
+		try {
+			redisDao.delKey("session_" + token);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
 }

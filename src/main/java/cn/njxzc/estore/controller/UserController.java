@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -138,7 +139,6 @@ public class UserController {
 	public Object updatePassword(
 			@PathVariable Long id,
 			@RequestBody PasswordDto passwordDto) {
-		System.out.println(passwordDto);
 		Response response = null;
 		boolean flag = false;
 		flag = userService.updatePassword(id, passwordDto.getOldPassword(), passwordDto.getNewPassword());
@@ -146,6 +146,24 @@ public class UserController {
 			response = new Response(ReturnCode.USER_PASSWORD_SUCCEED);
 		} else {
 			response = new Response(ReturnCode.USER_PASSWORD_FAILED);
+		}
+		return response;
+	}
+	
+	/**
+	 * 退出
+	 * 
+	 * @param token
+	 * @return
+	 */
+	@DeleteMapping(value = "/logout")
+	public Object logout(@RequestParam String token) {
+		Response response = null;
+		boolean flag = userService.logout(token);
+		if (flag) {
+			response = new Response(ReturnCode.USER_LOGOUT_SUCCEED);
+		} else {
+			response = new Response(ReturnCode.USER_LOGOUT_FAILED);
 		}
 		return response;
 	}

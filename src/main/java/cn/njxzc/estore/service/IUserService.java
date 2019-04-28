@@ -12,5 +12,7 @@ public interface IUserService {
 	public boolean updatePassword(Long id, String oldPassword, String newPassword);
 	
 	public boolean insertNew(User user);
+	
+	public boolean logout(String token);
 
 }

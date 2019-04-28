@@ -22,6 +22,10 @@ public enum ReturnCode {
 	
 	USER_PASSWORD_FAILED(40007, "用户密码修改失败"),
 	
+	USER_LOGOUT_SUCCEED(40008, "用户退出成功"),
+	
+	USER_LOGOUT_FAILED(40009, "用户退出失败"),
+	
 	// Geetest
 	GEETEST_VERIFY_FAILED(50001, "极验验证失败"),
 	
