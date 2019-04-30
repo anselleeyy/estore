@@ -40,7 +40,8 @@ public class ItemController {
 	@GetMapping(value = "/detail/{id}")
 	public Object findItemById(@PathVariable long id) {
 		Item item = itemService.findItemById(id);
-		return item;
+		Response response = new Response(ReturnCode.ITEM_DETAIL_GOT, item);
+		return response;
 	}
 	
     /**

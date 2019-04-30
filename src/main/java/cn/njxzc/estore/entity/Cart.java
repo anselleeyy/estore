@@ -15,7 +15,7 @@ public class Cart implements Serializable {
 
 	private Long itemId;
 
-	private int number;
+	private int number = 1;
 	
 	private int status;
 

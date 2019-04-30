@@ -7,6 +7,23 @@ public enum ReturnCode {
 	
 	ITEM_HOT_RATE_UPDATE(10002, "商品热度更新成功"),
 	
+	ITEM_DETAIL_GOT(10003, "商品信息读取成功"),
+	
+	// 购物车相关
+	CART_ADD_SUCCEED(20001, "购物车记录添加成功"),
+	
+	CART_ADD_FAILED(20002, "购物车记录添加失败"),
+	
+	CART_LIST_GOT(20003, "用户购物车记录读取成功"),
+	
+	CART_DELETE_SUCCEED(20004, "购物车记录删除成功"),
+    
+    CART_DELETE_FAILED(20005, "购物车记录删除失败"),
+    
+    CART_UPDATE_SUCCEED(20006, "购物车记录更新成功"),
+    
+    CART_UPDATE_FAILED(20007, "购物车记录更新失败"),
+	
 	// 用户相关
 	USER_CREATE_SUCCEED(40001, "用户注册成功"),
 	

@@ -25,10 +25,10 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public boolean delete(int id) {
+	public boolean delete(long userId, long itemId) {
 		// TODO Auto-generated method stub
 		try {
-			cartDao.delete(id);
+			cartDao.deleteCart(userId, itemId);
 			return true;
 		} catch (TransactionException e) {
 			// TODO: handle exception
@@ -40,13 +40,25 @@ public class CartServiceImpl implements ICartService {
 	public boolean updateNum(int num, int id) {
 		// TODO Auto-generated method stub
 		try {
-			cartDao.updateNum(num, id);
+			cartDao.updateNumById(num, id);
 			return true;
 		} catch (TransactionException e) {
 			// TODO: handle exception
 			return false;
 		}
 	}
+
+    @Override
+    public boolean updateNum(int num, long itemId, long userId) {
+        // TODO Auto-generated method stub
+        try {
+            cartDao.updateNum(num, itemId, userId);
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return false;
+    }
 
 	@Override
 	public boolean orderCart(Long userId) {
@@ -60,16 +72,25 @@ public class CartServiceImpl implements ICartService {
 		}
 	}
 
-	@Override
-	public boolean insertCart(Cart cart) {
-		// TODO Auto-generated method stub
-		try {
-			cartDao.insertNewRec(cart);
-			return true;
-		} catch (TransactionException e) {
-			// TODO: handle exception
-			return false;
-		}
-	}
+    @Override
+    public boolean insertCart(List<Cart> cartList) {
+        // TODO Auto-generated method stub
+        try {
+            for (Cart cart : cartList) {
+                Cart temp = cartDao.findIfExist(cart.getUserId(), cart.getItemId());
+                if (null != temp) {
+                    // 存在记录就更新数量
+                    cartDao.updateNumById(cart.getNumber(), temp.getId());
+                } else {
+                    // 不存在就直接新增
+                    cartDao.insertNewRec(cart);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return false;
+    }
 
 }

@@ -13,12 +13,19 @@ public interface ICartService {
 	 */
 	public List<Cart> findAllCarts(Long userId);
 
-	public boolean delete(int id);
+	public boolean delete(long userId, long itemId);
 
 	public boolean updateNum(int num, int id);
 	
+	public boolean updateNum(int num, long itemId, long userId);
+	
 	boolean orderCart(Long userId);
 	
-	boolean insertCart(Cart cart);
+	/**
+	 * 主要用于初始登录态的一个数据同步和新增购物车记录
+	 * @param cartList
+	 * @return
+	 */
+	boolean insertCart(List<Cart> cartList);
 
 }
