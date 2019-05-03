@@ -93,5 +93,12 @@ public class ItemServiceImpl implements IItemService {
         }
         return itemDao.findItemByPrice(low, high);
     }
+
+	@Override
+	public Page<Item> searchItem(int pageNo, int pageSize, String keyword) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(pageNo, pageSize);
+		return itemDao.searchItem("%" + keyword + "%");
+	}
 	
 }

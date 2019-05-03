@@ -60,5 +60,13 @@ public interface IItemDao {
 	
 	@Update(value = "update tb_item set hot_rate = hot_rate + 1 where id = #{id}")
 	public void updateHotRate(long id);
+	
+	/**
+	 * 根据关键字搜索接口
+	 * @param keyword
+	 * @return
+	 */
+	@Select(value = "select * from tb_item where title like #{keyword}")
+	public Page<Item> searchItem(String keyword);
 
 }

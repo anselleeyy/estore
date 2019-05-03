@@ -63,4 +63,13 @@ public interface IItemService {
 	 */
 	public boolean updateHotRate(Long id);
 	
+	/**
+	 * 搜索商品
+	 * @param pageNo
+	 * @param pageSize
+	 * @param keyword
+	 * @return
+	 */
+	public Page<Item> searchItem(int pageNo, int pageSize, String keyword);
+	
 }

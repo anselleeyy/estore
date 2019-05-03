@@ -72,7 +72,6 @@ public class ItemController {
     @GetMapping(value = "/all/price/{interval}")
     public Object findItemsBySelectPrice(@RequestParam int currentPage, @RequestParam int pageSize,
         @PathVariable String interval) {
-    	System.out.println(interval);
         // 区间必须通过 | 分割
         String[] limits = interval.split("\\|");
         List<Item> list =
@@ -82,6 +81,12 @@ public class ItemController {
         return response;
     }
 
+    /**
+     * 异步服务接口，更新商品点击率
+     * 
+     * @param id
+     * @return
+     */
 	@ApiOperation(value = "点击后更新商品热度")
 	@PutMapping(value = "/updateHot/{id}")
 	public Object updateHotRate(@PathVariable Long id) {
@@ -90,6 +95,14 @@ public class ItemController {
 		if (flag) {
 			response.setReturnCode(ReturnCode.ITEM_HOT_RATE_UPDATE);
 		}
+		return response;
+	}
+	
+	@GetMapping(value = "/search/{keyword}")
+	public Object search(@PathVariable String keyword, @RequestParam int currentPage, @RequestParam int pageSize) {
+		List<Item> list = itemService.searchItem(currentPage, pageSize, keyword);
+		PageInfo<Item> pageInfo = new PageInfo<>(list);
+		Response response = new Response(ReturnCode.ITEM_LIST_GOT, pageInfo);
 		return response;
 	}
 }
