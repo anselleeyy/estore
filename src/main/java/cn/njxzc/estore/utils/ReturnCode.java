@@ -59,7 +59,14 @@ public enum ReturnCode {
 	
 	ADDRESS_DELETE_SUCCEED(60006, "用户地址删除成功"),
     
-    ADDRESS_DELETE_FAILED(60007, "用户地址删除失败");
+    ADDRESS_DELETE_FAILED(60007, "用户地址删除失败"),
+    
+    // 订单相关
+    ORDER_CREATE_SUCCEED(70001, "订单创建成功"),
+    
+    ORDER_CREATE_FAILED(70002, "订单创建失败"),
+    
+    ORDER_LIST_GOT(70003, "订单信息获取成功");
 	
 	private int code;
 	
