@@ -3,8 +3,6 @@ package cn.njxzc.estore.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import cn.njxzc.estore.utils.Constants;
-
 /**
  * 用户信息表
  * 
@@ -160,7 +158,7 @@ public class User implements Serializable {
 	}
 
 	public String getAvatar() {
-		return avatar.startsWith(Constants.NGINX_URL) ? avatar : Constants.NGINX_URL + avatar;
+		return avatar;
 	}
 
 	public void setAvatar(String avatar) {

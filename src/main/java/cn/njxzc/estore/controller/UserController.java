@@ -1,6 +1,7 @@
 package cn.njxzc.estore.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
 
 import cn.njxzc.estore.dto.PasswordDto;
 import cn.njxzc.estore.dto.UserDto;
@@ -164,6 +166,38 @@ public class UserController {
 			response = new Response(ReturnCode.USER_LOGOUT_SUCCEED);
 		} else {
 			response = new Response(ReturnCode.USER_LOGOUT_FAILED);
+		}
+		return response;
+	}
+	
+	/**
+	 * 分页获取所有用户信息
+	 * @param currentPage
+	 * @param pageSize
+	 * @return
+	 */
+	@GetMapping(value = "/users")
+	public Object getAllUsers(@RequestParam int currentPage, @RequestParam int pageSize) {
+		List<User> users = userService.getAllByPage(currentPage, pageSize);
+		PageInfo<User> pageInfo = new PageInfo<>(users);
+		Response response = new Response(ReturnCode.USER_LIST_GOT, pageInfo);
+		return response;
+	}
+	
+	/**
+	 * 删除用户
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping(value = "/delete/{id}")
+	public Object deleteUser(@PathVariable long id) {
+		boolean flag = userService.deleteUser(id);
+		Response response = null;
+		if (flag) {
+			response = new Response(ReturnCode.USER_DELETE_SUCCEED);
+		} else {
+			response = new Response(ReturnCode.USER_DELETE_FAILED);
 		}
 		return response;
 	}

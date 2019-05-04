@@ -93,7 +93,11 @@ public enum ReturnCode {
     
     ORDER_UPDATE_SUCCEED(80011, "订单信息修改成功"),
     
-    ORDER_UPDATE_FAILED(80012, "订单信息修改失败");
+    ORDER_UPDATE_FAILED(80012, "订单信息修改失败"),
+    
+    USER_DELETE_SUCCEED(80013, "用户删除成功"),
+    
+    USER_DELETE_FAILED(80014, "用户删除失败");
 	
 	private int code;
 	

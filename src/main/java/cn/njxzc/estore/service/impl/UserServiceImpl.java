@@ -4,9 +4,12 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 import cn.njxzc.estore.dao.IUserDao;
 import cn.njxzc.estore.dto.UserDto;
@@ -99,6 +102,26 @@ public class UserServiceImpl implements IUserService {
 		// TODO Auto-generated method stub
 		try {
 			redisDao.delKey("session_" + token);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
+	@Override
+	public Page<User> getAllByPage(int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(pageNo, pageSize);
+		return userDao.findAll();
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteUser(long id) {
+		// TODO Auto-generated method stub
+		try {
+			userDao.deleteUser(id);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

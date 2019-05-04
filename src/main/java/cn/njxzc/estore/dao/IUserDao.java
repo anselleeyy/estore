@@ -1,8 +1,11 @@
 package cn.njxzc.estore.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+import com.github.pagehelper.Page;
 
 import cn.njxzc.estore.entity.User;
 
@@ -24,4 +27,10 @@ public interface IUserDao {
 	
 	@Select(value = "select * from tb_user where id = #{id}")
 	public User findById(Long id);
+	
+	@Select(value = "select * from tb_user")
+	public Page<User> findAll();
+	
+	@Delete(value = "delete from tb_user where id = #{id}")
+	public void deleteUser(long id);
 }
