@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,6 +55,18 @@ public class OrderController {
 		List<Order> orders = orderService.findAllByPage(currentPage, pageSize);
 		PageInfo<Order> page = new PageInfo<>(orders);
 		Response response = new Response(ReturnCode.ORDER_LIST_GOT, page);
+		return response;
+	}
+	
+	@DeleteMapping(value = "/delete/{orderId}")
+	public Object deleteOrder(@PathVariable String orderId) {
+		boolean flag = orderService.deleteOrder(orderId);
+		Response response = null;
+		if (flag) {
+			response = new Response(ReturnCode.ORDER_DELETE_SUCCEED);
+		} else {
+			response = new Response(ReturnCode.ORDER_DELETE_FAILED);
+		}
 		return response;
 	}
 

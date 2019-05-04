@@ -24,5 +24,24 @@ public interface IOrderService {
 	 * @return
 	 */
 	public Page<Order> findAllByPage(int pageNo, int pageSize);
+	
+	/**
+	 * 提供管理员修改订单的单件商品的数量和单价
+	 * 注意更新明细表的总额和整笔订单的总额
+	 * 
+	 * @param orderId
+	 * @param num
+	 * @param price
+	 * @return
+	 */
+	public boolean updatePriceAndNum(String orderId, Integer num, Double price);
+	
+	/**
+	 * 删除订单以及明细
+	 * 
+	 * @param orderId
+	 * @return
+	 */
+	public boolean deleteOrder(String orderId);
 
 }

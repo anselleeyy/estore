@@ -30,8 +30,7 @@ public class OrderServiceImpl implements IOrderService {
 	
 	@Autowired
 	private ICartDao cartDao;
-	
-	// static 保证唯一
+
 	private static AtomicInteger serialNumber = new AtomicInteger(0);
 
 	@Override
@@ -98,6 +97,31 @@ public class OrderServiceImpl implements IOrderService {
 		}
 		String orderId = mills + String.format("%03d", serialNumber.getAndAdd(1));
 		return orderId;
+	}
+
+	@Override
+	public boolean updatePriceAndNum(String orderId, Integer num, Double price) {
+		// TODO Auto-generated method stub
+		try {
+			orderDetailDao.updateInfo(orderId, num, price, num * price);
+			// TODO: 更新订单的总额
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteOrder(String orderId) {
+		// TODO Auto-generated method stub
+		try {
+			orderDao.delete(orderId);
+			orderDetailDao.deleteDetail(orderId);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
 	}
 
 }
