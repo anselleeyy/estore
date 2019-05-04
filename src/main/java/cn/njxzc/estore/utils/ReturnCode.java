@@ -43,6 +43,8 @@ public enum ReturnCode {
 	
 	USER_LOGOUT_FAILED(40009, "用户退出失败"),
 	
+	USER_LIST_GOT(40010, "用户列表获取成功"),
+	
 	// Geetest
 	GEETEST_VERIFY_FAILED(50001, "极验验证失败"),
 	
@@ -66,7 +68,30 @@ public enum ReturnCode {
     
     ORDER_CREATE_FAILED(70002, "订单创建失败"),
     
-    ORDER_LIST_GOT(70003, "订单信息获取成功");
+    ORDER_LIST_GOT(70003, "订单信息获取成功"),
+    
+    // 后台相关
+    FILE_UPLOAD_SUCCEED(80001, "文件上传成功"),
+    
+    FILE_UPLOAD_FAILED(80002, "文件上传失败"),
+    
+    ITEM_ADD_SUCCEED(80003, "商品新增成功"),
+    
+    ITEM_ADD_FAILED(80004, "商品新增失败"),
+    
+    ITEM_DELETE_SUCCEED(80005, "商品删除成功"),
+    
+    ITEM_DELETE_FAILED(80006, "商品删除失败"),
+    
+    ITEM_UPDATE_SUCCEED(80007, "商品信息修改成功"),
+    
+    ORDER_DELETE_SUCCEED(80008, "订单删除成功"),
+    
+    ORDER_DELETE_FAILED(80009, "订单删除失败"),
+    
+    ORDER_UPDATE_SUCCEED(80010, "订单信息修改成功"),
+    
+    ORDER_UPDATE_FAILED(80011, "订单信息修改失败");
 	
 	private int code;
 	
