@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import cn.njxzc.estore.utils.Constants;
 
 public class ItemDetail implements Serializable {
@@ -28,7 +26,6 @@ public class ItemDetail implements Serializable {
 	
 	private String packStyle;
 	
-	@JsonIgnore
 	private String smallPicUrl;
 	
 	private String detailPicUrl;
@@ -86,6 +83,10 @@ public class ItemDetail implements Serializable {
 	public void setSmallPicUrl(String smallPicUrl) {
 		this.smallPicUrl = smallPicUrl;
 		smallPicList = Arrays.asList(smallPicUrl.split(","));
+	}
+
+	public String getSmallPicUrl() {
+		return smallPicUrl;
 	}
 
 	public String getDetailPicUrl() {

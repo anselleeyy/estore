@@ -100,5 +100,65 @@ public class ItemServiceImpl implements IItemService {
 		PageHelper.startPage(pageNo, pageSize);
 		return itemDao.searchItem("%" + keyword + "%");
 	}
+
+	@Override
+	public boolean saveInfo(Item item) {
+		// TODO Auto-generated method stub
+		try {
+			itemDao.save(item);
+			itemDetailDao.save(item.getItemDetail());
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
+	@Override
+	public Page<Item> findAllItems(int pageNo, int pageSize) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(pageNo, pageSize);
+		return itemDao.findAllItems();
+	}
+
+	@Override
+	public boolean updateStatus(long id) {
+		// TODO Auto-generated method stub
+		try {
+			itemDao.updateStatus(id);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateNumAndPrice(long id, double price, int limitNum) {
+		// TODO Auto-generated method stub
+		try {
+			itemDao.updatePrice(price, id);
+			itemDetailDao.updateLimitNum(limitNum, id);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteItem(long id) {
+		// TODO Auto-generated method stub
+		try {
+			itemDao.deleteItem(id);
+			itemDetailDao.deleteDetail(id);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 }
