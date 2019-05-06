@@ -11,8 +11,10 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import cn.njxzc.estore.dao.IRoleDao;
 import cn.njxzc.estore.dao.IUserDao;
 import cn.njxzc.estore.dto.UserDto;
+import cn.njxzc.estore.entity.Role;
 import cn.njxzc.estore.entity.User;
 import cn.njxzc.estore.service.IUserService;
 import cn.njxzc.estore.utils.Constants;
@@ -23,6 +25,9 @@ public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private IUserDao userDao;
+	
+	@Autowired
+    private IRoleDao roleDao;
 	
 	@Autowired
 	private RedisDao redisDao;
@@ -44,7 +49,6 @@ public class UserServiceImpl implements IUserService {
 			redisDao.setKey("session_" + token, JSON.toJSONString(user), 3600);
 			message = "登录成功";
 		}
-		user.setAvatar("" + user.getAvatar());
 		userDto = new UserDto(user, message, token, 1);
 		return userDto;
 	}
@@ -128,5 +132,12 @@ public class UserServiceImpl implements IUserService {
 		}
 		return false;
 	}
+
+    @Override
+    public String getRoleType(int roleId) {
+        // TODO Auto-generated method stub
+        Role role = roleDao.getRoleById(roleId);
+        return role.getRoleType();
+    }
 
 }
