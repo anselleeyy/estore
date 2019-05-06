@@ -20,5 +20,7 @@ public interface IUserService {
 	public Page<User> getAllByPage(int pageNo, int pageSize);
 	
 	public boolean deleteUser(long id);
+	
+	public String getRoleType(int roleId);
 
 }

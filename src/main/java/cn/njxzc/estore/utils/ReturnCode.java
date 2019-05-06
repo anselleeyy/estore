@@ -97,7 +97,13 @@ public enum ReturnCode {
     
     USER_DELETE_SUCCEED(80013, "用户删除成功"),
     
-    USER_DELETE_FAILED(80014, "用户删除失败");
+    USER_DELETE_FAILED(80014, "用户删除失败"),
+    
+    ADMIN_LOGIN_SUCCEED(80015, "管理员登录成功"),
+    
+    ADMIN_AUTH_FAILED(80016, "登录账号权限不足"),
+    
+    ADMIN_LOGIN_FAILED(80017, "账号或密码错误");
 	
 	private int code;
 	
