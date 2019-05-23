@@ -17,7 +17,7 @@ public class EstoreApplication {
 		SpringApplication.run(EstoreApplication.class, args);
 	}
 	
-	
+	// 文件上传配置
 	@Bean
 	public MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();

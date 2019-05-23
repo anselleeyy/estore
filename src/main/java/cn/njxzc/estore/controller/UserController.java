@@ -71,7 +71,9 @@ public class UserController {
 		Response response = null;
 		if (gt_result == 1) {
 			userDto = userService.userLogin(userValidate.getUsername(), userValidate.getPassword());
-			if (!"".equals(userDto.getToken())) {
+			if (userDto.getUser() == null) {
+				response = new Response(ReturnCode.USER_LOGIN_NULL, userDto);
+			} else if (!"".equals(userDto.getToken())) {
 			    response = new Response(ReturnCode.USER_LOGIN_SUCCEED, userDto);
             } else {
                 response = new Response(ReturnCode.USER_LOGIN_FAILED, userDto);

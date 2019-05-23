@@ -45,6 +45,8 @@ public enum ReturnCode {
 	
 	USER_LIST_GOT(40010, "用户列表获取成功"),
 	
+	USER_LOGIN_NULL(40011, "该用户不存在"),
+	
 	// Geetest
 	GEETEST_VERIFY_FAILED(50001, "极验验证失败"),
 	
