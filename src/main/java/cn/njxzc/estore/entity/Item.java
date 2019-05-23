@@ -88,7 +88,7 @@ public class Item {
 	}
 
 	public String getPicUrl() {
-		return Constants.NGINX_URL + picUrl;
+		return picUrl.startsWith("http") ? picUrl : Constants.NGINX_URL + picUrl;
 	}
 
 	public void setPicUrl(String picUrl) {

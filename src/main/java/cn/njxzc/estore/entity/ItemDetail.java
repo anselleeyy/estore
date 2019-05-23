@@ -90,7 +90,7 @@ public class ItemDetail implements Serializable {
 	}
 
 	public String getDetailPicUrl() {
-		return detailPicUrl;
+		return detailPicUrl.startsWith("http") ? detailPicUrl : Constants.NGINX_URL + detailPicUrl;
 	}
 
 	public void setDetailPicUrl(String detailPicUrl) {

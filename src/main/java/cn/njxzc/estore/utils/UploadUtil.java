@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class UploadUtil {
 
-//	private static final String FILE_ADDRESS = "/mall/img/goods/";
-
-	private static final String FILE_ADDRESS = "C:\\Users\\Ansel\\Desktop";
+	private static final String FILE_ADDRESS = "/home/ansel/nginx/mall/img/goods/";
+	
+	private static final String TEMP_FILE = "/mall/img/goods/";
 
 	public static synchronized String savePic(long isbn, MultipartFile file, int flag) {
 		Path dirPath = null;
@@ -32,13 +32,12 @@ public class UploadUtil {
 			byte[] bytes = file.getBytes();
 			// 目录不存在就创建
 			dirPath = Paths.get(FILE_ADDRESS, String.valueOf(isbn));
-			// 避免多线程同步问题，加锁，单例双重检验
 			if (!Files.exists(dirPath)) {
 				Files.createDirectory(dirPath);
 			}
 			Path filePath = Paths.get(FILE_ADDRESS, String.valueOf(isbn), fileName);
 			Files.write(filePath, bytes);
-			return filePath.toString();
+			return Paths.get(TEMP_FILE, String.valueOf(isbn), fileName).toString();
 		} catch (FileAlreadyExistsException e) {
 			// TODO: handle exception
 			e.printStackTrace();
