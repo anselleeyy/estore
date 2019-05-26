@@ -41,14 +41,14 @@ public interface IItemDao {
 	 * 分页降序查询
 	 * @return
 	 */
-	@Select(value = "select * from tb_item order where status = 1 by price desc")
+	@Select(value = "select * from tb_item where status = 1 order by price desc")
 	public Page<Item> findItemByPriceDesc();
     
 	/**
      * 分页升序查询
      * @return
      */
-    @Select(value = "select * from tb_item order where status = 1 by price asc")
+    @Select(value = "select * from tb_item where status = 1 order by price asc")
     public Page<Item> findItemByPriceAsc();
     
     /**
